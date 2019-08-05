@@ -1,0 +1,8 @@
+name: "starter"
+version: "1.0.0"
+usage: "Fetch, list, and delete helm starters from github."
+description: |-
+  This plugin fetches, lists, and deletes helm starters from github.
+ignoreFlags: false
+useTunnel: false
+command: "$HELM_PLUGIN_DIR/starter.sh"

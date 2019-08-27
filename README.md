@@ -20,7 +20,9 @@ Example helm starters:
 
 * `helm starter fetch GITURL`: Clones a bare helm starter repo into `$HELM_HOME/starters`
 * `helm starter list`: Lists all the starters in `$HELM_HOME/starters`
+* `helm starter update NAME`: Refresh an installed Helm starter
 * `helm starter delete NAME`: Delete `name` from `$HELM_HOME/starters`
+* `helm starter inspect NAME`: Print out a starter's readme
 * `helm starter --help`: print help
 
 To use a starter, run:

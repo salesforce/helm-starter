@@ -53,24 +53,24 @@ COMMAND=${PASSTHRU[0]}
 
 if [ "$COMMAND" == "fetch" ]; then
     REPO=${PASSTHRU[1]}
-    cd ${HELM_PATH_STARTER}
+    cd ${HELM_DATA_HOME}/starters
     git clone ${REPO} --quiet
     exit 0
 elif [ "$COMMAND" == "update" ]; then
     STARTER=${PASSTHRU[1]}
-    cd ${HELM_PATH_STARTER}/${STARTER}
+    cd ${HELM_DATA_HOME}/starters/${STARTER}
     git pull origin master --quiet
     exit 0
 elif [ "$COMMAND" == "list" ]; then
-    ls -A1 ${HELM_PATH_STARTER}
+    ls -A1 ${HELM_DATA_HOME}/starters
     exit 0
 elif [ "$COMMAND" == "delete" ]; then 
     STARTER=${PASSTHRU[1]}
-    rm -rf ${HELM_PATH_STARTER}/${STARTER}
+    rm -rf ${HELM_DATA_HOME}/starters/${STARTER}
     exit 0
 elif [ "$COMMAND" == "inspect" ]; then 
     STARTER=${PASSTHRU[1]}
-    find ${HELM_PATH_STARTER}/${STARTER} -type f -iname "*readme*" -exec cat {} \;
+    find ${HELM_DATA_HOME}/starters/${STARTER} -type f -iname "*readme*" -exec cat {} \;
     exit 0
 else
     echo "Error: Invalid command."

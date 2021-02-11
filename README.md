@@ -1,6 +1,6 @@
 # helm-starter
 
-A helm plugin for managing [helm starters](https://helm.sh/docs/developing_charts/#chart-starter-packs). Helm starters
+A helm3 plugin for managing [helm starters](https://helm.sh/docs/developing_charts/#chart-starter-packs). Helm starters
 are used by the `helm create` command to customize the default chart. For example, an Istio starter can create
 `VirtualService` and `DestinationRule` objects, in addition to the standard `Service` and `Deployment` objects.
 

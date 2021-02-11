@@ -13,7 +13,9 @@ Fetch, list, and delete helm starters from github.
 Available Commands:
     helm starter fetch GITURL       Install a bare Helm starter from Github (e.g git clone)
     helm starter list               List installed Helm starters
+    helm starter update NAME        Refresh an installed Helm starter
     helm starter delete NAME        Delete an installed Helm starter
+    helm starter inspect NAME       Print out a starter's readme
     --help                          Display this text
 EOF
 }
@@ -53,7 +55,11 @@ if [ "$COMMAND" == "fetch" ]; then
     REPO=${PASSTHRU[1]}
     cd ${HELM_PATH_STARTER}
     git clone ${REPO} --quiet
-    cd $OLDPWD
+    exit 0
+elif [ "$COMMAND" == "update" ]; then
+    STARTER=${PASSTHRU[1]}
+    cd ${HELM_PATH_STARTER}/${STARTER}
+    git pull origin master --quiet
     exit 0
 elif [ "$COMMAND" == "list" ]; then
     ls -A1 ${HELM_PATH_STARTER}
@@ -62,8 +68,12 @@ elif [ "$COMMAND" == "delete" ]; then
     STARTER=${PASSTHRU[1]}
     rm -rf ${HELM_PATH_STARTER}/${STARTER}
     exit 0
+elif [ "$COMMAND" == "inspect" ]; then 
+    STARTER=${PASSTHRU[1]}
+    find ${HELM_PATH_STARTER}/${STARTER} -type f -iname "*readme*" -exec cat {} \;
+    exit 0
 else
-    echo "Error: Invalid command, must be one of 'fetch', 'list', or 'delete'"
+    echo "Error: Invalid command."
     usage
     exit 1
 fi

@@ -51,6 +51,9 @@ fi
 # COMMAND must be either 'fetch', 'list', or 'delete'
 COMMAND=${PASSTHRU[0]}
 
+# Create the /starters directory, if needed
+mkdir -p ${HELM_DATA_HOME}/starters
+
 if [ "$COMMAND" == "fetch" ]; then
     REPO=${PASSTHRU[1]}
     cd ${HELM_DATA_HOME}/starters

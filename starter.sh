@@ -62,7 +62,7 @@ if [ "$COMMAND" == "fetch" ]; then
 elif [ "$COMMAND" == "update" ]; then
     STARTER=${PASSTHRU[1]}
     cd ${HELM_DATA_HOME}/starters/${STARTER}
-    git pull origin master --quiet
+    git pull origin $(git rev-parse --abbrev-ref HEAD) --quiet
     exit 0
 elif [ "$COMMAND" == "list" ]; then
     ls -A1 ${HELM_DATA_HOME}/starters

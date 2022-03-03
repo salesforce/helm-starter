@@ -65,7 +65,7 @@ elif [ "$COMMAND" == "update" ]; then
     git pull origin $(git rev-parse --abbrev-ref HEAD) --quiet
     exit 0
 elif [ "$COMMAND" == "list" ]; then
-    ls -A1 ${HELM_DATA_HOME}/starters
+    find ${HELM_DATA_HOME}/starters -type d -depth 2 -not -path '*/.*' -exec realpath --relative-to ${HELM_DATA_HOME}/starters {} \;
     exit 0
 elif [ "$COMMAND" == "delete" ]; then 
     STARTER=${PASSTHRU[1]}

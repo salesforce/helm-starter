@@ -11,12 +11,14 @@ cat << EOF
 Fetch, list, and delete helm starters from github.
 
 Available Commands:
-    helm starter fetch GITURL       Install a bare Helm starter from Github (e.g git clone)
-    helm starter list               List installed Helm starters
-    helm starter update NAME        Refresh an installed Helm starter
-    helm starter delete NAME        Delete an installed Helm starter
-    helm starter inspect NAME       Print out a starter's readme
-    --help                          Display this text
+    helm starter fetch GITURL [VERSION]   Install a bare Helm starter from Github (e.g git clone)
+					  Optionally specify a version (e.g. a git tag)
+    helm starter list                     List installed Helm starters
+    helm starter update NAME [VERSION]    Refresh an installed Helm starter
+                                          Optionally specify a version (e.g. a git tag)
+    helm starter delete NAME              Delete an installed Helm starter
+    helm starter inspect NAME             Print out a starter's readme
+    --help                                Display this text
 EOF
 }
 
@@ -56,15 +58,23 @@ mkdir -p ${HELM_DATA_HOME}/starters
 
 if [ "$COMMAND" == "fetch" ]; then
     REPO=${PASSTHRU[1]}
+    VERSION=${PASSTHRU[2]}
     cd ${HELM_DATA_HOME}/starters
-    git clone ${REPO} --quiet
+    if [ -z "$VERSION" ]; then
+        git clone ${REPO} --quiet
+    else
+        git -c advice.detachedHead=false clone ${REPO} --quiet --branch ${VERSION}
+    fi
     exit 0
 elif [ "$COMMAND" == "update" ]; then
     STARTER=${PASSTHRU[1]}
+    VERSION=${PASSTHRU[2]:-"HEAD"}
     cd ${HELM_DATA_HOME}/starters/${STARTER}
     git pull origin $(git rev-parse --abbrev-ref HEAD) --quiet
+    git checkout ${VERSION} --quiet
     exit 0
 elif [ "$COMMAND" == "list" ]; then
+    # TODO: print also the checked out version, perhaps using "git describe --tags"?
     ls -A1 ${HELM_DATA_HOME}/starters
     exit 0
 elif [ "$COMMAND" == "delete" ]; then 

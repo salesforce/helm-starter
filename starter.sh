@@ -74,8 +74,15 @@ elif [ "$COMMAND" == "update" ]; then
     git checkout ${VERSION} --quiet
     exit 0
 elif [ "$COMMAND" == "list" ]; then
-    # TODO: print also the checked out version, perhaps using "git describe --tags"?
-    ls -A1 ${HELM_DATA_HOME}/starters
+    cd ${HELM_DATA_HOME}/starters
+    printf "%-20s   %-10s\n" NAME VERSION
+    for STARTER in *; do
+	if [ -d "$STARTER" ]; then
+	    cd ${HELM_DATA_HOME}/starters/${STARTER}
+	    VERSION=$(git describe --tags)
+	    printf "%-20s   %-10s\n" ${STARTER} ${VERSION}
+	fi
+    done
     exit 0
 elif [ "$COMMAND" == "delete" ]; then 
     STARTER=${PASSTHRU[1]}

@@ -78,8 +78,7 @@ elif [ "$COMMAND" == "list" ]; then
     printf "%-20s   %-10s\n" NAME VERSION
     for STARTER in *; do
 	if [ -d "$STARTER" ]; then
-	    cd ${HELM_DATA_HOME}/starters/${STARTER}
-	    VERSION=$(git describe --tags --always)
+	    VERSION=$(cd ${HELM_DATA_HOME}/starters/${STARTER};git describe --tags --always)
 	    printf "%-20s   %-10s\n" ${STARTER} ${VERSION}
 	fi
     done

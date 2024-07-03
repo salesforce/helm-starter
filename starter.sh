@@ -79,7 +79,7 @@ elif [ "$COMMAND" == "list" ]; then
     for STARTER in *; do
 	if [ -d "$STARTER" ]; then
 	    cd ${HELM_DATA_HOME}/starters/${STARTER}
-	    VERSION=$(git describe --tags)
+	    VERSION=$(git describe --tags --always)
 	    printf "%-20s   %-10s\n" ${STARTER} ${VERSION}
 	fi
     done

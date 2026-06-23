@@ -35,5 +35,5 @@ To use a starter, run:
 
 ```sh
 > helm starter fetch https://github.com/salesforce/helm-starter-istio.git
-> helm create banana-service --starter helm-starter-istio
+> helm create banana-service --starter helm-starter-istio/mesh-service
 ```
